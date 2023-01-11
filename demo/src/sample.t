@@ -41,11 +41,25 @@ versionInfo:    GameID
 startRoom:      Room 'Void'
         "This is a featureless void."
 ;
-
-me:     Person
-        location = startRoom
++me: Person;
++pebble: Thing, EventNotifier 'small round pebble' 'pebble'
+	"It's a small, round pebble. "
+	dobjFor(Examine) {
+		action() {
+			inherited();
+			notifySubscribers('examine');
+		}
+	}
+;
++stone: Thing, EventListener 'generic stone' 'stone'
+	"It's a generic stone. "
+	eventHandler(obj) {
+		"\^<<theName>> received a notification. ";
+	}
+	initializeThing() {
+		inherited();
+		pebble.addSubscriber(self, 'examine');
+	}
 ;
 
-gameMain:       GameMainDef
-        initialPlayerChar = me
-;
+gameMain:       GameMainDef initialPlayerChar = me;
