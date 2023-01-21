@@ -104,9 +104,9 @@ class EventNotifier: Thing
 
 		return(true);
 	}
-	notifySubscribers(type) {
+	notifySubscribers(type, data?) {
 		getSubscribers.forEach(function(o) {
-			o.fire(type);
+			o.fire(type, data);
 		});
 	}
 ;
