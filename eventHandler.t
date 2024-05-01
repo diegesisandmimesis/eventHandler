@@ -56,11 +56,9 @@ class EventSubscription: object
 
 		e = new EventHandlerEvent(source, v, d);
 		if(dataType(callback) == TypeNil) {
-aioSay('default\n ');
 			// Ping the subscriber's default event handler.
 			subscriber._eventHandler(e);
 		} else {
-aioSay('callback\n ');
 			subscriber.(callback)(e);
 		}
 
