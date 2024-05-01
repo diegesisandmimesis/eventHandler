@@ -55,10 +55,12 @@ class EventSubscription: object
 			return(nil);
 
 		e = new EventHandlerEvent(source, v, d);
-		if(callback == nil) {
+		if(dataType(callback) == TypeNil) {
+aioSay('default\n ');
 			// Ping the subscriber's default event handler.
 			subscriber._eventHandler(e);
 		} else {
+aioSay('callback\n ');
 			subscriber.(callback)(e);
 		}
 
@@ -73,8 +75,8 @@ class EventSubscription: object
 	}
 ;
 
-// Mixin class for Things that want to EMIT events.
-class EventNotifier: Thing
+// Mixin class for objects that want to EMIT events.
+class EventNotifier: object
 	_eventSubscribers = nil		// list of objects subscribed to us
 
 	// Returns the list of subscribers, creating an empty one if necessary.
@@ -85,7 +87,7 @@ class EventNotifier: Thing
 	}
 
 	// Add a subscriber to
-	addSubscriber(v, cb?, type?) {
+	addSubscriber(v, type?, cb?) {
 		local l;
 
 		l = getSubscribers();
@@ -111,7 +113,7 @@ class EventNotifier: Thing
 	}
 ;
 
-class EventListener: Thing
+class EventListener: object
 	_eventHandler(obj) {
 		if((obj == nil) || !obj.ofKind(EventHandlerEvent))
 			return;
