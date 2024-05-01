@@ -80,17 +80,20 @@ class EventNotifier: object
 	// Returns the list of subscribers, creating an empty one if necessary.
 	getSubscribers() {
 		if(_eventSubscribers == nil)
-			_eventSubscribers = new Vector(16);
+			_eventSubscribers = new Vector();
 		return(_eventSubscribers);
 	}
+
+	subscribe(v, type?, cb?) { addSubscriber(v, type, cb); }
 
 	// Add a subscriber to
 	addSubscriber(v, type?, cb?) {
 		local l;
 
 		l = getSubscribers();
-		if(l.indexOf(v) == nil)
+		if(l.valWhich({x: x.subscriber == v}) == nil) {
 			l.append(new EventSubscription(v, cb, type, self));
+		}
 	}
 	removeSubscriber(v) {
 		local idx, l;
