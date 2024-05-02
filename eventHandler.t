@@ -91,7 +91,8 @@ class EventNotifier: object
 		local l;
 
 		l = getSubscribers();
-		if(l.valWhich({x: x.subscriber == v}) == nil) {
+		if(l.valWhich({x: x.subscriber == v && x.type == type})
+			== nil) {
 			l.append(new EventSubscription(v, cb, type, self));
 		}
 	}
