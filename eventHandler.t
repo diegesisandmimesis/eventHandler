@@ -109,11 +109,12 @@ class EventNotifier: object
 		return(true);
 	}
 	notifySubscribers(type, data?) {
-		getSubscribers.forEach(function(o) {
-			o.fire(type, data);
-		});
+		getSubscribers.forEach({ x: x.fire(type, data) });
 	}
 ;
+
+// Just a synonym.
+class EventSource: EventNotifier;
 
 class EventListener: object
 	_eventHandler(obj) {
